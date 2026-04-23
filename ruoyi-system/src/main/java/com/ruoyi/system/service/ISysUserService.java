@@ -7,7 +7,7 @@ import com.ruoyi.common.core.domain.entity.SysUser;
 /**
  * 用户 业务层
  * 
- * @author ruoyi
+ * @author zkz
  */
 public interface ISysUserService
 {

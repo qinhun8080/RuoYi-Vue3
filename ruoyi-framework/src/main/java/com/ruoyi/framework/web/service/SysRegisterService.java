@@ -1,5 +1,6 @@
 package com.ruoyi.framework.web.service;
 
+import com.ruoyi.system.service.impl.SysUserServiceImpl;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Component;
 import com.ruoyi.common.constant.CacheConstants;
@@ -22,7 +23,7 @@ import com.ruoyi.system.service.ISysUserService;
 /**
  * 注册校验方法
  * 
- * @author ruoyi
+ * @author zkz
  */
 @Component
 public class SysRegisterService
@@ -35,6 +36,10 @@ public class SysRegisterService
 
     @Autowired
     private RedisCache redisCache;
+
+    @Autowired
+    private SysUserServiceImpl sysUserService;
+
 
     /**
      * 注册

@@ -1,0 +1,56 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper
+PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+"http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.ruoyi.system.mapper.BookTypeMapper">
+    
+    <resultMap type="BookType" id="BookTypeResult">
+        <result property="typeId"    column="type_id"    />
+        <result property="typeName"    column="type_name"    />
+    </resultMap>
+
+    <sql id="selectBookTypeVo">
+        select type_id, type_name from book_type
+    </sql>
+
+    <select id="selectBookTypeList" parameterType="BookType" resultMap="BookTypeResult">
+        <include refid="selectBookTypeVo"/>
+        <where>  
+            <if test="typeName != null  and typeName != ''"> and type_name like concat('%', #{typeName}, '%')</if>
+        </where>
+    </select>
+    
+    <select id="selectBookTypeByTypeId" parameterType="Long" resultMap="BookTypeResult">
+        <include refid="selectBookTypeVo"/>
+        where type_id = #{typeId}
+    </select>
+
+    <insert id="insertBookType" parameterType="BookType" useGeneratedKeys="true" keyProperty="typeId">
+        insert into book_type
+        <trim prefix="(" suffix=")" suffixOverrides=",">
+            <if test="typeName != null and typeName != ''">type_name,</if>
+         </trim>
+        <trim prefix="values (" suffix=")" suffixOverrides=",">
+            <if test="typeName != null and typeName != ''">#{typeName},</if>
+         </trim>
+    </insert>
+
+    <update id="updateBookType" parameterType="BookType">
+        update book_type
+        <trim prefix="SET" suffixOverrides=",">
+            <if test="typeName != null and typeName != ''">type_name = #{typeName},</if>
+        </trim>
+        where type_id = #{typeId}
+    </update>
+
+    <delete id="deleteBookTypeByTypeId" parameterType="Long">
+        delete from book_type where type_id = #{typeId}
+    </delete>
+
+    <delete id="deleteBookTypeByTypeIds" parameterType="String">
+        delete from book_type where type_id in 
+        <foreach item="typeId" collection="array" open="(" separator="," close=")">
+            #{typeId}
+        </foreach>
+    </delete>
+</mapper>

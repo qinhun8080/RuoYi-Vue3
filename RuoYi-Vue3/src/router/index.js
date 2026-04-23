@@ -2,6 +2,9 @@ import { createWebHistory, createRouter } from 'vue-router'
 /* Layout */
 import Layout from '@/layout'
 
+// 👇 这里是关键：引入系统管理路由
+import systemRouter from './modules/system'
+
 /**
  * Note: 路由配置项
  *
@@ -88,6 +91,9 @@ export const constantRoutes = [
 
 // 动态路由，基于用户权限动态去加载
 export const dynamicRoutes = [
+  // 👇 把系统路由加进来，这是你404的真正原因
+  systemRouter,
+
   {
     path: '/system/user-auth',
     component: Layout,
